@@ -1,4 +1,4 @@
-import Card from "../src/Card";
+import Card from "../../src/entity/Card";
 
 describe("Card", () => {
     it("Should create a card", () => {

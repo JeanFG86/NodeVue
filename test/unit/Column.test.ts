@@ -1,4 +1,4 @@
-import Column from "../src/Column";
+import Column from "../../src/entity/Column";
 
 describe("Column", () => {
     it("Must create a column", () => {
