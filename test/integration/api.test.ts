@@ -24,4 +24,17 @@ describe("API", () => {
         expect(column2.name).toBe("Column B");
         expect(column3.name).toBe("Column C");
     });
+
+    it("Should return cards of a column via api", async () => {
+        const response = await axios({
+            url: "http://localhost:3000/boards/1/columns/1/cards",
+            method: "get",
+        });
+        const cards = response.data;
+        expect(cards).toHaveLength(3);
+        const [card1, card2, card3] = cards;
+        expect(card1.title).toBe("Activity 1");
+        expect(card2.title).toBe("Activity 2");
+        expect(card3.title).toBe("Activity 3");
+    });
 });

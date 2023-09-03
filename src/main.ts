@@ -16,4 +16,12 @@ app.get("/boards/:idBoard/columns", async (req, res) => {
     console.log(columns);
     res.json(columns);
 });
+app.get("/boards/:idBoard/columns/:idColumn/cards", async (req, res) => {
+    const columns = await connection.query(
+        "select * from j.card where id_column = $1",
+        [req.params.idColumn]
+    );
+    console.log(columns);
+    res.json(columns);
+});
 app.listen(3000);
