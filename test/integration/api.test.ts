@@ -8,5 +8,7 @@ describe("API", () => {
         });
         const boards = response.data;
         expect(boards).toHaveLength(1);
+        const [board] = boards;
+        expect(board.name).toBe("Project 1");
     });
 });
