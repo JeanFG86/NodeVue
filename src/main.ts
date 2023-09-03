@@ -8,4 +8,12 @@ app.get("/boards", async (req, res) => {
     console.log(boards);
     res.json(boards);
 });
+app.get("/boards/:idBoard/columns", async (req, res) => {
+    const columns = await connection.query(
+        "select * from j.column where id_board = $1",
+        [req.params.idBoard]
+    );
+    console.log(columns);
+    res.json(columns);
+});
 app.listen(3000);

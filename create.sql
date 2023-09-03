@@ -23,8 +23,8 @@ create table j.card(
 
 insert into j.board(id_board, name) values (1, 'Project 1');
 insert into j.column(id_column, id_board, name, has_estimative) values (1, 1, 'Column A', true);
-insert into j.column(id_column, id_board, name, has_estimative) values (2, 1, 'Column A', true);
-insert into j.column(id_column, id_board, name, has_estimative) values (3, 1, 'Column A', true);
+insert into j.column(id_column, id_board, name, has_estimative) values (2, 1, 'Column B', true);
+insert into j.column(id_column, id_board, name, has_estimative) values (3, 1, 'Column C', true);
 insert into j.card(id_card, id_column, title, estimative) values (1, 1, 'Activity 1', 3);
 insert into j.card(id_card, id_column, title, estimative) values (2, 1, 'Activity 2', 2);
 insert into j.card(id_card, id_column, title, estimative) values (3, 1, 'Activity 3', 1);
