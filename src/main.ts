@@ -3,16 +3,13 @@ import pgp from "pg-promise";
 import Board from "./entity/Board";
 import Column from "./entity/Column";
 import Card from "./entity/Card";
+import BoardService from "./service/BoardService";
 const app = express();
 
 const connection = pgp()("postgres://postgres:123456@localhost:5432/app");
 app.get("/boards", async (req, res) => {
-    const boardsData = await connection.query("select name from j.board", []);
-    const boards: Board[] = [];
-    for (const boardData of boardsData) {
-        boards.push(new Board(boardData.name));
-    }
-    console.log(boards);
+    const boardService = new BoardService();
+    const boards = await boardService.getBoards();
     res.json(boards);
 });
 app.get("/boards/:idBoard/columns", async (req, res) => {

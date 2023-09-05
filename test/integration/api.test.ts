@@ -10,6 +10,7 @@ describe("API", () => {
         expect(boards).toHaveLength(1);
         const [board] = boards;
         expect(board.name).toBe("Project 1");
+        expect(board.estimative).toBe(6);
     });
 
     it("Should return columns of a board via api", async () => {
