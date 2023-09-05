@@ -4,6 +4,7 @@ import Board from "./entity/Board";
 import Column from "./entity/Column";
 import Card from "./entity/Card";
 import BoardService from "./service/BoardService";
+import ColumnService from "./service/ColumnService";
 const app = express();
 
 const connection = pgp()("postgres://postgres:123456@localhost:5432/app");
@@ -13,15 +14,10 @@ app.get("/boards", async (req, res) => {
     res.json(boards);
 });
 app.get("/boards/:idBoard/columns", async (req, res) => {
-    const columnsData = await connection.query(
-        "select name, has_estimative from j.column where id_board = $1",
-        [req.params.idBoard]
+    const columnService = new ColumnService();
+    const columns = await columnService.getColumns(
+        parseInt(req.params.idBoard)
     );
-    const columns: Column[] = [];
-    for (const columnData of columnsData) {
-        columns.push(new Column(columnData.name, columnData.has_estimative));
-    }
-    console.log(columns);
     res.json(columns);
 });
 app.get("/boards/:idBoard/columns/:idColumn/cards", async (req, res) => {
