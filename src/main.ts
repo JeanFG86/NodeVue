@@ -1,14 +1,9 @@
 import express from "express";
-import pgp from "pg-promise";
-import Board from "./entity/Board";
-import Column from "./entity/Column";
-import Card from "./entity/Card";
 import BoardService from "./service/BoardService";
 import ColumnService from "./service/ColumnService";
 import CardService from "./service/CardService";
 const app = express();
 
-const connection = pgp()("postgres://postgres:123456@localhost:5432/app");
 app.get("/boards", async (req, res) => {
     const boardService = new BoardService();
     const boards = await boardService.getBoards();
