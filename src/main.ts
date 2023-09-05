@@ -5,6 +5,7 @@ import Column from "./entity/Column";
 import Card from "./entity/Card";
 import BoardService from "./service/BoardService";
 import ColumnService from "./service/ColumnService";
+import CardService from "./service/CardService";
 const app = express();
 
 const connection = pgp()("postgres://postgres:123456@localhost:5432/app");
@@ -21,15 +22,8 @@ app.get("/boards/:idBoard/columns", async (req, res) => {
     res.json(columns);
 });
 app.get("/boards/:idBoard/columns/:idColumn/cards", async (req, res) => {
-    const cardsData = await connection.query(
-        "select title, estimative from j.card where id_column = $1",
-        [req.params.idColumn]
-    );
-    const cards: Card[] = [];
-    for (const cardData of cardsData) {
-        cards.push(new Card(cardData.title, cardData.estimative));
-    }
-    console.log(cards);
+    const cardService = new CardService();
+    const cards = await cardService.getCards(parseInt(req.params.idColumn));
     res.json(cards);
 });
 app.listen(3000);
