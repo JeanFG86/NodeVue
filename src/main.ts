@@ -3,12 +3,14 @@ import BoardService from "./service/BoardService";
 import ColumnService from "./service/ColumnService";
 import CardService from "./service/CardService";
 import PgPromiseConnection from "./infra/database/PgPromiseConnection";
+import BoardRepositoryDatabase from "./infra/repository/BoardRepositoryDatabase";
 const app = express();
 
 const connection = new PgPromiseConnection();
+const boardRepository = new BoardRepositoryDatabase(connection);
 
 app.get("/boards", async (req, res) => {
-    const boardService = new BoardService();
+    const boardService = new BoardService(boardRepository);
     const boards = await boardService.getBoards();
     res.json(boards);
 });
