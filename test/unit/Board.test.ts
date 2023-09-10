@@ -1,4 +1,4 @@
-import Board from "../../src/domain/Board";
+import Board from "../../src/domain/entity/Board";
 
 describe("Board", () => {
     it("Should create a board", () => {

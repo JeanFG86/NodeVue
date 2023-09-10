@@ -1,5 +1,5 @@
 import pgp from "pg-promise";
-import Card from "../domain/Card";
+import Card from "../domain/entity/Card";
 export default class CardService {
     constructor() {}
 

@@ -1,5 +1,5 @@
 import pgp from "pg-promise";
-import Board from "../domain/Board";
+import Board from "../domain/entity/Board";
 export default class BoardService {
     constructor() {}
 

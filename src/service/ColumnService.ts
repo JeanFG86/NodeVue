@@ -1,5 +1,5 @@
 import pgp from "pg-promise";
-import Column from "../domain/Column";
+import Column from "../domain/entity/Column";
 export default class ColumnService {
     constructor() {}
 
