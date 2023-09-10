@@ -2,7 +2,10 @@ import express from "express";
 import BoardService from "./service/BoardService";
 import ColumnService from "./service/ColumnService";
 import CardService from "./service/CardService";
+import PgPromiseConnection from "./infra/database/PgPromiseConnection";
 const app = express();
+
+const connection = new PgPromiseConnection();
 
 app.get("/boards", async (req, res) => {
     const boardService = new BoardService();
