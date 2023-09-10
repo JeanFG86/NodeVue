@@ -1,21 +1,11 @@
 import pgp from "pg-promise";
 import Card from "../domain/entity/Card";
+import CardRepository from "../domain/repository/CardRepository";
 export default class CardService {
-    constructor() {}
+    constructor(readonly cardsRepository: CardRepository) {}
 
     async getCards(idColumn: number) {
-        const connection = pgp()(
-            "postgres://postgres:123456@localhost:5432/app"
-        );
-        const cardsData = await connection.query(
-            "select title, estimative from j.card where id_column = $1",
-            [idColumn]
-        );
-        const cards: Card[] = [];
-        for (const cardData of cardsData) {
-            cards.push(new Card(cardData.title, cardData.estimative));
-        }
-        await connection.$pool.end();
+        const cards = this.cardsRepository.findAllByIdColumn(idColumn);
         return cards;
     }
 }
