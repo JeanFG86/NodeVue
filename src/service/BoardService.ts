@@ -1,5 +1,3 @@
-import pgp from "pg-promise";
-import Board from "../domain/entity/Board";
 import BoardRepository from "../domain/repository/BoardRepository";
 export default class BoardService {
     constructor(readonly boardRepository: BoardRepository) {}
