@@ -1,4 +1,5 @@
 import BoardRepository from "../domain/repository/BoardRepository";
+
 export default class BoardService {
     constructor(readonly boardRepository: BoardRepository) {}
 
