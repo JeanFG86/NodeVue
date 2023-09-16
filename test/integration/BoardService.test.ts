@@ -3,8 +3,17 @@ import BoardRepositoryDatabase from "../../src/infra/repository/BoardRepositoryD
 import BoardService from "../../src/service/BoardService";
 
 describe("BoardService", () => {
+    let connection: PgPromiseConnection; // Declare a variável connection com o tipo apropriado
+
+    beforeAll(async () => {
+        connection = new PgPromiseConnection();
+    });
+
+    afterAll(async () => {
+        await connection.close();
+    });
+
     it("Should list cards", async () => {
-        const connection = new PgPromiseConnection();
         const boardRepository = new BoardRepositoryDatabase(connection);
         const boardService = new BoardService(boardRepository);
         const boards = await boardService.getBoards();
