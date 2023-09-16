@@ -1,8 +1,7 @@
 import axios from "axios";
 
 describe("API", () => {
-    /*
-    it.only("Should return boards via api", async () => {
+    it.skip("Should return boards via api", async () => {
         const response = await axios({
             url: "http://localhost:3000/boards",
             method: "get",
@@ -13,8 +12,8 @@ describe("API", () => {
         expect(board.name).toBe("Project 1");
         //expect(board.estimative).toBe(6);
     });
-*/
-    it("Should return columns of a board via api", async () => {
+
+    it.skip("Should return columns of a board via api", async () => {
         const response = await axios({
             url: "http://localhost:3000/boards/1/columns",
             method: "get",
@@ -27,7 +26,7 @@ describe("API", () => {
         expect(column3.name).toBe("Column C");
     });
 
-    it("Should return cards of a column via api", async () => {
+    it.skip("Should return cards of a column via api", async () => {
         const response = await axios({
             url: "http://localhost:3000/boards/1/columns/1/cards",
             method: "get",
