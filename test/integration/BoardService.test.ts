@@ -3,7 +3,7 @@ import BoardRepositoryDatabase from "../../src/infra/repository/BoardRepositoryD
 import BoardService from "../../src/service/BoardService";
 
 describe("BoardService", () => {
-    let connection: PgPromiseConnection; // Declare a variável connection com o tipo apropriado
+    let connection: PgPromiseConnection;
 
     beforeAll(async () => {
         connection = new PgPromiseConnection();

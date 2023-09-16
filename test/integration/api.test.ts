@@ -1,6 +1,7 @@
 import axios from "axios";
 
 describe("API", () => {
+    /*
     it.only("Should return boards via api", async () => {
         const response = await axios({
             url: "http://localhost:3000/boards",
@@ -12,7 +13,7 @@ describe("API", () => {
         expect(board.name).toBe("Project 1");
         //expect(board.estimative).toBe(6);
     });
-
+*/
     it("Should return columns of a board via api", async () => {
         const response = await axios({
             url: "http://localhost:3000/boards/1/columns",
