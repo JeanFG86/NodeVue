@@ -50,5 +50,12 @@ describe("BoardService", () => {
         expect(b.estimative).toBe(0);
         expect(c.estimative).toBe(0);
         expect(board.estimative).toBe(6);
+        const [card1, card2, card3] = a.cards;
+        expect(card1.title).toBe("Activity 1");
+        expect(card1.estimative).toBe(3);
+        expect(card2.title).toBe("Activity 2");
+        expect(card2.estimative).toBe(2);
+        expect(card3.title).toBe("Activity 3");
+        expect(card3.estimative).toBe(1);
     });
 });
