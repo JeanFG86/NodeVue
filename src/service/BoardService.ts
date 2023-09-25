@@ -12,7 +12,7 @@ export default class BoardService {
 
     async getBoards(): Promise<Board[]> {
         const boards = await this.boardRepository.findAll();
-        return boards;
+        return boards.map((board) => ({ name: board.name }));
     }
 
     async getBoard(idBoard: number): Promise<BoardOutput> {
@@ -24,7 +24,6 @@ export default class BoardService {
         };
         const columns = await this.columnRepository.findAllByIdBoard(idBoard);
         for (const column of columns) {
-            let estimative = 0;
             const columnOutput: ColumnOutput = {
                 name: column.name,
                 hasEstimative: column.hasEstimative,
