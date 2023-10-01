@@ -1,7 +1,7 @@
 import axios from "axios";
 
 describe("API", () => {
-    it.skip("Should return boards via api", async () => {
+    it("Should return boards via api", async () => {
         const response = await axios({
             url: "http://localhost:3000/boards",
             method: "get",
@@ -10,7 +10,6 @@ describe("API", () => {
         expect(boards).toHaveLength(1);
         const [board] = boards;
         expect(board.name).toBe("Project 1");
-        //expect(board.estimative).toBe(6);
     });
 
     it.skip("Should return columns of a board via api", async () => {

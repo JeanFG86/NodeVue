@@ -6,6 +6,12 @@ export default class ExpressAdapter implements Http {
 
     constructor() {
         this.app = express();
+        this.app.use(function (req: any, res: any, next: any) {
+            res.set("access-control-allow-origin", "*");
+            res.set("access-control-allow-headers", "*");
+            res.set("access-control-allow-methods", "*");
+            next();
+        });
     }
 
     route(method: string, url: string, callback: Function): void {

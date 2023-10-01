@@ -1,25 +1,39 @@
-<script setup lang="ts">
-    const board = {
-        name: "Project A",
-        columns:[
-            {
-                name:"Todo",
-                cards: [
-                    {title: "A", estimative: 3},
-                    {title: "B", estimative: 2},
-                    {title: "C", estimative: 1}
+<script>
+import axios from "axios"
+export default {
+    data() {
+        return {
+            board: {
+                    name: "Project A",
+                    columns: [
+                    {
+                        name: "Todo",
+                        cards: [
+                            { title: "A", estimative: 3 },
+                            { title: "B", estimative: 2 },
+                            { title: "C", estimative: 1 }
+                        ]
+                    },
+                    {
+                        name: "Doing",
+                        cards: []
+                    },
+                    {
+                        name: "Done",
+                        cards: []
+                    },
                 ]
-            },
-                {
-                name:"Doing",
-                cards:[]
-            },
-                {
-                name:"Done",
-                cards:[]
-            },
-        ]            
+                }
+            }
+    },
+    mounted() {
+        axios({
+            url: "http://localhost:3000/boards/1",
+            method: "get"
+        });
     }
+}
+
 </script>
 
 <template>
