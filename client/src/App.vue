@@ -23,14 +23,21 @@ export default {
                         cards: []
                     },
                 ]
-                }
+            },
+                columnName:""
             }
     },
-    mounted() {
-        axios({
+    methods: {
+        addColumn(columnName) {
+            this.board.columns.push({name: columnName, cards: []})
+        }
+    },
+    async mounted() {
+        const response = await axios({
             url: "http://localhost:3000/boards/1",
             method: "get"
         });
+       this.board = response.data;
     }
 }
 
@@ -38,19 +45,35 @@ export default {
 
 <template>
 <div>
-    <h3>{{board.name}}</h3>
+    <h3>{{board.name}} {{ board.estimative }}</h3>
     <div class="columns">
         <div class="column" v-for="column in board.columns">
-            <h3>{{ column.name }}</h3>
+            <h3>{{ column.name }} {{ column.estimative }}</h3>
             <div class="card" v-for="card in column.cards">
             {{ card.title }}
             </div>
         </div>
+         <div class="new-column">
+            {{ columnName }}
+            <input type="text" v-model="columnName"/>
+            <button v-on:click="addColumn(columnName)">add</button>
+        </div> 
     </div>    
 </div>
 </template>
 
 <style scoped>
+
+    .new-column{
+        background-color: #EEE;
+        border: 1px dashed #CCC;
+        display: block;
+        width: 200px;
+        text-align: center;
+        margin-right: 5px;
+        padding: 10px;
+    }
+
     .columns{
         display: flex;
         flex-direction: row;
@@ -74,4 +97,6 @@ export default {
         align-items: center;
         justify-content: space-around;
     }
+
+    
 </style>
