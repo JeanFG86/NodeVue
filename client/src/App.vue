@@ -24,12 +24,28 @@ export default {
                     },
                 ]
             },
-                columnName:""
+            columnName: "",
+            cardTitle: ""
             }
     },
     methods: {
         addColumn(columnName) {
             this.board.columns.push({name: columnName, cards: []})
+        },
+        addCard(column, cardTitle) {
+            column.cards.push({ title: cardTitle, estimative: 3 })
+            column.estimative += 3;
+        },
+        increaseEstimative(card) {
+            card.estimative++;
+        }        
+    },
+    computed: {
+        boardEstimative () {
+            return this.board.columns.reduce((total, column) => {
+                total += column.estimative;
+                return total;
+            }, 0);
         }
     },
     async mounted() {
@@ -38,19 +54,25 @@ export default {
             method: "get"
         });
        this.board = response.data;
-    }
+    }    
 }
 
 </script>
 
 <template>
 <div>
-    <h3>{{board.name}} {{ board.estimative }}</h3>
+    <h3>{{board.name}} {{ boardEstimative }}</h3>
     <div class="columns">
         <div class="column" v-for="column in board.columns">
             <h3>{{ column.name }} {{ column.estimative }}</h3>
             <div class="card" v-for="card in column.cards">
-            {{ card.title }}
+            {{ card.title }} {{ card.estimative }}
+            <br/>
+            <button @click="increaseEstimative(card)">+</button><button>-</button>
+            </div>
+            <div class="card new-card">
+                <input type="text" v-model="cardTitle"/>
+                <button v-on:click="addCard(column, cardTitle)">add</button>
             </div>
         </div>
          <div class="new-column">
@@ -72,6 +94,12 @@ export default {
         text-align: center;
         margin-right: 5px;
         padding: 10px;
+    }
+
+    .new-card{
+        background-color: #EEE;
+        border: 1px dashed #CCC;
+        display: block;
     }
 
     .columns{
