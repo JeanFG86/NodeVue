@@ -3,27 +3,7 @@ import axios from "axios"
 export default {
     data() {
         return {
-            board: {
-                    name: "Project A",
-                    columns: [
-                    {
-                        name: "Todo",
-                        cards: [
-                            { title: "A", estimative: 3 },
-                            { title: "B", estimative: 2 },
-                            { title: "C", estimative: 1 }
-                        ]
-                    },
-                    {
-                        name: "Doing",
-                        cards: []
-                    },
-                    {
-                        name: "Done",
-                        cards: []
-                    },
-                ]
-            },
+            board: undefined,
             columnName: "",
             cardTitle: ""
             }
@@ -43,7 +23,10 @@ export default {
     computed: {
         boardEstimative () {
             return this.board.columns.reduce((total, column) => {
-                total += column.estimative;
+                total += column.cards.reduce((total, card) => {
+                    total += card.estimative;
+                    return total;
+                }, 0);
                 return total;
             }, 0);
         }
@@ -61,26 +44,28 @@ export default {
 
 <template>
 <div>
-    <h3>{{board.name}} {{ boardEstimative }}</h3>
-    <div class="columns">
-        <div class="column" v-for="column in board.columns">
-            <h3>{{ column.name }} {{ column.estimative }}</h3>
-            <div class="card" v-for="card in column.cards">
-            {{ card.title }} {{ card.estimative }}
-            <br/>
-            <button @click="increaseEstimative(card)">+</button><button>-</button>
+    <div v-if="board">
+        <h3>{{board.name}} {{ boardEstimative }}</h3>
+        <div class="columns">
+            <div class="column" v-for="column in board.columns">
+                <h3>{{ column.name }} {{ column.estimative }}</h3>
+                <div class="card" v-for="card in column.cards">
+                {{ card.title }} {{ card.estimative }}
+                <br/>
+                <button @click="increaseEstimative(card)">+</button><button>-</button>
+                </div>
+                <div class="card new-card">
+                    <input type="text" v-model="cardTitle"/>
+                    <button v-on:click="addCard(column, cardTitle)">add</button>
+                </div>
             </div>
-            <div class="card new-card">
-                <input type="text" v-model="cardTitle"/>
-                <button v-on:click="addCard(column, cardTitle)">add</button>
-            </div>
-        </div>
-         <div class="new-column">
-            {{ columnName }}
-            <input type="text" v-model="columnName"/>
-            <button v-on:click="addColumn(columnName)">add</button>
-        </div> 
-    </div>    
+            <div class="new-column">
+                {{ columnName }}
+                <input type="text" v-model="columnName"/>
+                <button v-on:click="addColumn(columnName)">add</button>
+            </div> 
+        </div>   
+    </div> 
 </div>
 </template>
 
