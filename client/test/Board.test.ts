@@ -14,3 +14,14 @@ test("Should make a board with 3 columns", function () {
   expect(board.columns).toHaveLength(3);
   expect(board.getEstimative()).toBe(0);
 });
+
+test("Should make a board with 3 columns and cards", function () {
+  const board = new Board("Projeto 1");
+  board.addColumn("Todo", true);
+  board.addColumn("Doing", true);
+  board.addColumn("Done", false);
+  board.addCard("Todo", "Atividade 1", 3);
+  board.addCard("Todo", "Atividade 2", 2);
+  board.addCard("Todo", "Atividade 3", 1);
+  expect(board.getEstimative()).toBe(6);
+});
