@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import axios from "axios";
 import { onMounted, reactive, ref } from "vue";
 import Board from "../entities/Board";
+import BoardServiceHttp from "../services/BoardServiceHttp";
 
 const data: {board: Board | undefined} = reactive({ board: undefined});
 let cardTitle = ref("");
@@ -9,18 +9,8 @@ let columnName = ref("");
 
 
 onMounted(async () => {
-    const response = await axios({
-        url: "http://localhost:3000/boards/1",
-        method: "get"
-    });
-    const boardData = response.data;    
-    const board = new Board(boardData.name)
-    for (const columnData of boardData.columns) {
-        board.addColumn(columnData.name, columnData.estimative);
-        for (const cardData of columnData.cards) {
-            board.addCard(columnData.name, cardData.title, cardData.estimative);
-        }
-    }
+    const boardService = new BoardServiceHttp()
+    const board = await boardService.getBoard(1);
     data.board = board;
 })
 
