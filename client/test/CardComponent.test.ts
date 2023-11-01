@@ -23,4 +23,6 @@ test("Should test card component", async function () {
 
   expect(wrapper.get(".card-title").text()).toBe("Atividade 1");
   expect(wrapper.get(".card-estimative").text()).toBe("3");
+  await wrapper.get(".card-increase-estimative").trigger("click");
+  expect(wrapper.get(".card-estimative").text()).toBe("4");
 });
