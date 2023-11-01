@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import axios from "axios";
-import { onMounted } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import Board from "../entities/Board";
+
+const data: {board: Board | undefined} = reactive({ board: undefined});
+let cardTitle = ref("");
+let columnName = ref("");
 
 
 onMounted(async () => {
@@ -17,35 +21,35 @@ onMounted(async () => {
             board.addCard(columnData.name, cardData.title, cardData.estimative);
         }
     }
-    console.log(board);
+    data.board = board;
 })
 
 </script>
 
 <template>
 <div>
-    <!-- <div v-if="data.board">
-        <h3>{{data.board.name}} {{ boardEstimative }}</h3>
+    <div v-if="data.board">
+        <h3>{{data.board.name}} {{ data.board.getEstimative() }}</h3>
         <div class="columns">
             <div class="column" v-for="column in data.board.columns">
-                <h3>{{ column.name }} {{ column.estimative }}</h3>
+                <h3>{{ column.name }} {{ column.getEstimative() }}</h3>
                 <div class="card" v-for="card in column.cards">
                 {{ card.title }} {{ card.estimative }}
                 <br/>
-                <button @click="increaseEstimative(card)">+</button><button>-</button>
+                <button @click="data.board.increaseEstimative(card)">+</button><button>-</button>
                 </div>
                 <div class="card new-card">
                     <input type="text" v-model="cardTitle"/>
-                    <button v-on:click="addCard(column, cardTitle)">add</button>
+                    <button v-on:click="data.board.addCard(column.name, cardTitle, 0)">add</button>
                 </div>
             </div>
             <div class="new-column">
                 {{ columnName }}
                 <input type="text" v-model="columnName"/>
-                <button v-on:click="addColumn(columnName)">add</button>
+                <button v-on:click="data.board.addColumn(columnName, true)">add</button>
             </div> 
         </div>  
-    </div>  -->
+    </div> 
 </div>
 </template>
 
