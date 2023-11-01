@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import ColumnComponent from './ColumnComponent.vue';
 
 defineProps(["board"]);
 let cardTitle = ref("");
@@ -11,12 +12,7 @@ let columnName = ref("");
             <h3>{{ board.name }} <span id="estimative">{{ board.getEstimative() }}</span></h3>
             <div class="columns">
                 <div class="column" v-for="column in board.columns">
-                    <h3>{{ column.name }} {{ column.getEstimative() }}</h3>
-                    <div class="card" v-for="card in column.cards">
-                    {{ card.title }} {{ card.estimative }}
-                    <br/>
-                    <button @click="board.increaseEstimative(card)">+</button><button>-</button>
-                    </div>
+                    <ColumnComponent :board="board" :column="column"></ColumnComponent>
                     <div class="card new-card">
                         <input type="text" v-model="cardTitle"/>
                         <button v-on:click="board.addCard(column.name, cardTitle, 0)">add</button>
