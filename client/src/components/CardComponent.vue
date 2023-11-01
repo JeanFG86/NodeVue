@@ -6,7 +6,7 @@ defineProps(["board", "column", "card"]);
 
 <template>
     <div class="card">
-        {{ card.title }} {{ card.estimative }}
+        <span class="card-title">{{ card.title }}</span> <span class="card-estimative">{{ card.estimative }}</span>
         <br/>
         <button @click="board.increaseEstimative(card)">+</button><button>-</button>
     </div>    
