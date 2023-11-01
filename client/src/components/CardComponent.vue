@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import CardComponent from './CardComponent.vue';
 
-
-defineProps(["board", "column"]);
+defineProps(["board", "column", "card"]);
 
 </script>
 
 <template>
-    <h3>{{ column.name }} {{ column.getEstimative() }}</h3>
-    <div class="card" v-for="card in column.cards">
-    <CardComponent :board="board" :column="column" :card="card"></CardComponent>
-    </div>
+    {{ card.title }} {{ card.estimative }}
+    <br/>
+    <button @click="board.increaseEstimative(card)">+</button><button>-</button>
 </template>
 
 <style scoped>
