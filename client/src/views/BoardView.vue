@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "vue";
+import { inject, onMounted, reactive, ref } from "vue";
 import Board from "../entities/Board";
-import BoardServiceHttp from "../services/BoardServiceHttp";
+import BoardService from "../services/BoardService";
 
 const data: {board: Board | undefined} = reactive({ board: undefined});
 let cardTitle = ref("");
 let columnName = ref("");
 
-
 onMounted(async () => {
-    const boardService = new BoardServiceHttp()
+    const boardService = inject("boardService") as BoardService;
     const board = await boardService.getBoard(1);
     data.board = board;
 })
@@ -19,7 +18,7 @@ onMounted(async () => {
 <template>
 <div>
     <div v-if="data.board">
-        <h3>{{data.board.name}} {{ data.board.getEstimative() }}</h3>
+        <h3>{{data.board.name}} <span id="estimative">{{ data.board.getEstimative() }}</span></h3>
         <div class="columns">
             <div class="column" v-for="column in data.board.columns">
                 <h3>{{ column.name }} {{ column.getEstimative() }}</h3>
