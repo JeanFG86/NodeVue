@@ -5,7 +5,7 @@ export default class BoardRepositoryMemory implements BoardRepository {
     boards: Board[];
 
     constructor() {
-        this.boards = [new Board("Project 1")];
+        this.boards = [new Board(1, "Project 1")];
     }
     get(idBoard: number): Promise<Board> {
         throw new Error("Method not implemented.");
