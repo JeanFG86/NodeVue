@@ -13,6 +13,16 @@ describe("API", () => {
         expect(board.idBoard).toBe(1);
     });
 
+    it("Should return a board via api", async () => {
+        const response = await axios({
+            url: "http://localhost:3000/boards/1",
+            method: "get",
+        });
+        const board = response.data;
+        expect(board.name).toBe("Project 1");
+        expect(board.idBoard).toBe(1);
+    });
+
     it("Should return columns of a board via api", async () => {
         const response = await axios({
             url: "http://localhost:3000/boards/1/columns",
@@ -22,6 +32,7 @@ describe("API", () => {
         expect(columns).toHaveLength(3);
         const [column1, column2, column3] = columns;
         expect(column1.name).toBe("Column A");
+        expect(column1.idColumn).toBe(1);
         expect(column2.name).toBe("Column B");
         expect(column3.name).toBe("Column C");
     });

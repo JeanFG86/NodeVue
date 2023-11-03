@@ -23,4 +23,27 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
         }
         return columns;
     }
+
+    async save(column: Column): Promise<number> {
+        const [columnData] = await this.connection.query(
+            "insert into j.column (id_board, name, has_estimative) values ($1, $2, $3) returning id_column",
+            [column.idBoard, column.name, column.hasEstimative]
+        );
+        return columnData.id_column;
+    }
+
+    async get(idColumn: number): Promise<Column> {
+        const [columnData] = await this.connection.query(
+            "select id_board, id_column, name, has_estimative from j.column where id_column = $",
+            [idColumn]
+        );
+        const columns: Column[] = [];
+        if (!columnData) throw new Error("Column not found");
+        return new Column(
+            columnData.id_board,
+            columnData.id_column,
+            columnData.name,
+            columnData.has_estimative
+        );
+    }
 }

@@ -21,11 +21,13 @@ describe("ColumnService", () => {
         expect(columns).toHaveLength(3);
     });
 
-    // it("Should save a column", async () => {
-    //     const columnRepository = new ColumnRepositoryDatabase(connection);
-    //     const columnService = new ColumnService(columnRepository);
-    //     const output = await columnService.saveColumn(new Column("Todo", true));
-    //     const column = await columnService.getColumn(output.idColumn);
-    //     expect(column.name).toBe("Todo");
-    // });
+    it("Should save a column", async () => {
+        const columnRepository = new ColumnRepositoryDatabase(connection);
+        const columnService = new ColumnService(columnRepository);
+        const idColumn = await columnService.saveColumn(
+            new Column(1, 1, "Todo", true)
+        );
+        const column = await columnService.getColumn(idColumn);
+        expect(column.name).toBe("Todo");
+    });
 });
