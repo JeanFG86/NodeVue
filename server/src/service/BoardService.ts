@@ -12,7 +12,10 @@ export default class BoardService {
 
     async getBoards(): Promise<Board[]> {
         const boards = await this.boardRepository.findAll();
-        return boards.map((board) => ({ name: board.name }));
+        return boards.map((board) => ({
+            idBoard: board.idBoard,
+            name: board.name,
+        }));
     }
 
     async getBoard(idBoard: number): Promise<BoardOutput> {
