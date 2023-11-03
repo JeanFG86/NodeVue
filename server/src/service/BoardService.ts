@@ -10,7 +10,7 @@ export default class BoardService {
         readonly cardRepository: CardRepository
     ) {}
 
-    async getBoards(): Promise<Board[]> {
+    async getBoards(): Promise<{ idBoard: number; name: string }[]> {
         const boards = await this.boardRepository.findAll();
         return boards.map((board) => ({
             idBoard: board.idBoard,
@@ -21,6 +21,7 @@ export default class BoardService {
     async getBoard(idBoard: number): Promise<BoardOutput> {
         const board = await this.boardRepository.get(idBoard);
         const output: BoardOutput = {
+            idBoard: board.idBoard,
             name: board.name,
             estimative: 0,
             columns: [],
@@ -28,6 +29,7 @@ export default class BoardService {
         const columns = await this.columnRepository.findAllByIdBoard(idBoard);
         for (const column of columns) {
             const columnOutput: ColumnOutput = {
+                idColumn: column.idColumn,
                 name: column.name,
                 hasEstimative: column.hasEstimative,
                 estimative: 0,
@@ -40,6 +42,7 @@ export default class BoardService {
                 columnOutput.estimative += card.estimative;
                 output.estimative += card.estimative;
                 columnOutput.cards.push({
+                    idCard: card.idCard,
                     title: card.title,
                     estimative: card.estimative,
                 });
@@ -49,19 +52,26 @@ export default class BoardService {
         }
         return output;
     }
+
+    async saveBoard(): Promise<void> {}
+
+    async updateBoard(): Promise<void> {}
 }
 
 type ColumnOutput = {
+    idColumn: number;
     name: string;
     estimative: number;
     hasEstimative: boolean;
     cards: {
+        idCard: number;
         title: string;
         estimative: number;
     }[];
 };
 
 type BoardOutput = {
+    idBoard: number;
     name: string;
     estimative: number;
     columns: ColumnOutput[];
