@@ -37,6 +37,29 @@ describe("API", () => {
         expect(column3.name).toBe("Column C");
     });
 
+    it("Should save a column via api", async () => {
+        const responseSave = await axios({
+            url: "http://localhost:3000/boards/1/columns",
+            method: "post",
+            data: {
+                idBoard: 1,
+                name: "Todo",
+                hasEstimative: true,
+            },
+        });
+        const idColumn = responseSave.data;
+        const responseGet = await axios({
+            url: `http://localhost:3000/boards/1/columns/${idColumn}`,
+            method: "get",
+        });
+        const column = responseGet.data;
+        expect(column.name).toBe("Todo");
+        await axios({
+            url: `http://localhost:3000/boards/1/columns/${idColumn}`,
+            method: "delete",
+        });
+    });
+
     it("Should return cards of a column via api", async () => {
         const response = await axios({
             url: "http://localhost:3000/boards/1/columns/1/cards",
