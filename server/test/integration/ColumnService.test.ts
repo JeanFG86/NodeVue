@@ -27,7 +27,9 @@ describe("ColumnService", () => {
         const idColumn = await columnService.saveColumn(
             new Column(1, 1, "Todo", true)
         );
+        //console.log(idColumn);
         const column = await columnService.getColumn(idColumn);
         expect(column.name).toBe("Todo");
+        await columnService.deleteColumn(idColumn);
     });
 });

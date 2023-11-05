@@ -18,7 +18,11 @@ export default class ColumnService {
     }
 
     async getColumn(idColumn: number): Promise<Column> {
-        return this.columnRepository.get(idColumn);
+        return await this.columnRepository.get(idColumn);
+    }
+
+    async deleteColumn(idColumn: number): Promise<void> {
+        await this.columnRepository.delete(idColumn);
     }
 }
 

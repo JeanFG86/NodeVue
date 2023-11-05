@@ -1,6 +1,6 @@
---drop table j.card;
---drop table j.column;
---drop table j.board;
+drop table j.card;
+drop table j.column;
+drop table j.board;
 
 create table j.board(
     id_board serial primary key,

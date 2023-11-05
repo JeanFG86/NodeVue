@@ -34,7 +34,7 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
 
     async get(idColumn: number): Promise<Column> {
         const [columnData] = await this.connection.query(
-            "select id_board, id_column, name, has_estimative from j.column where id_column = $",
+            "select id_board, id_column, name, has_estimative from j.column where id_column = $1",
             [idColumn]
         );
         const columns: Column[] = [];
@@ -44,6 +44,13 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
             columnData.id_column,
             columnData.name,
             columnData.has_estimative
+        );
+    }
+
+    async delete(idColumn: number): Promise<void> {
+        await this.connection.query(
+            "delete from j.column where id_column = $1",
+            [idColumn]
         );
     }
 }
