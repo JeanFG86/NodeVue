@@ -9,6 +9,7 @@ const data: {board: Board | undefined} = reactive({ board: undefined});
 onMounted(async () => {
     const boardService = inject("boardService") as BoardService;
     const board = await boardService.getBoard(1);
+    //await boardService.saveColumn({ idBoard: 1, name: `${Math.random()}`, hasEstimative: true })
     data.board = board;
 })
 
