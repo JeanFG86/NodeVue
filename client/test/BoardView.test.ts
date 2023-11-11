@@ -15,7 +15,7 @@ function sleep() {
 test("Should test board view", async function () {
   const boardService: BoardService = {
     async getBoard(idBoard: number) {
-      const board = new Board("Projeto 1");
+      const board = new Board(1, "Projeto 1");
       board.addColumn("Todo", true);
       board.addColumn("Doing", true);
       board.addColumn("Done", false);

@@ -1,13 +1,13 @@
 import Board from "../src/entities/Board";
 
 test("Should make a board", function () {
-  const board = new Board("Projeto 1");
+  const board = new Board(1, "Projeto 1");
   expect(board.columns).toHaveLength(0);
   expect(board.name).toBe("Projeto 1");
 });
 
 test("Should make a board with 3 columns", function () {
-  const board = new Board("Projeto 1");
+  const board = new Board(1, "Projeto 1");
   board.addColumn("Todo", true);
   board.addColumn("Doing", true);
   board.addColumn("Done", false);
@@ -16,7 +16,7 @@ test("Should make a board with 3 columns", function () {
 });
 
 test("Should make a board with 3 columns and cards", function () {
-  const board = new Board("Projeto 1");
+  const board = new Board(1, "Projeto 1");
   board.addColumn("Todo", true);
   board.addColumn("Doing", true);
   board.addColumn("Done", false);

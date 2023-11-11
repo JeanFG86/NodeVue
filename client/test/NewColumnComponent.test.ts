@@ -5,7 +5,7 @@ import Board from "../src/entities/Board";
 import DomainEvent from "../src/events/DomainEvent";
 
 test("Should test column events", async function () {
-  const board = new Board("Projeto 1");
+  const board = new Board(1, "Projeto 1");
   board.addColumn("Todo", true);
   board.addColumn("Doing", true);
   board.addColumn("Done", false);
