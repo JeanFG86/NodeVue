@@ -13,15 +13,16 @@ defineProps(["board", "column", "card"]);
 </template>
 
 <style scoped>
-    .card{
-        width: 100%;
-        height: 80px;
-        text-align: center;
-        background-color: #F3E779;
-        border: 1px solid;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-    }
+.card {
+    text-align: center;
+    width: 100%;
+    height: 80px;
+    background-color: #F3E779;
+    border: 1px solid #000;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    padding: 15px;
+}
 </style>

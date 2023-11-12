@@ -7,20 +7,12 @@ let columnName = ref("");
 
 <template>
     <div class="new-column">
-        <input class="new-column-input" type="text" v-model="columnName"/>
-        <button class="new-column-add" v-on:click="board?.addColumn(columnName, true)">add</button>
-    </div> 
+    		<input class="new-column-input" type="text" v-model="columnName" @keypress.enter="board?.addColumn(columnName, true)" placeholder="New Column"/>
+    	</div>
 </template>
 
 <style scoped>
-    .new-column{
-        background-color: #EEE;
-        border: 1px dashed #CCC;
-        display: block;
-        width: 200px;
-        text-align: center;
-        margin-right: 5px;
-        padding: 10px;
-    }
-
+.new-column {
+    text-align: center;
+}
 </style>

@@ -15,12 +15,13 @@ defineProps(["board", "column"]);
 </template>
 
 <style scoped>
-    .column{
-        width: 200px;
-        text-align: center;
-        background-color: #CCC;
-        margin-right: 5px;
-        padding: 10px;
-        border: 1px solid;
-    }
+.column {
+    width: 200px;
+    text-align: center;
+    background-color: #CCC;
+    margin-right: 5px;
+    padding: 10px;
+    border: 1px solid #000;
+    min-height: 500px;
+}
 </style>
