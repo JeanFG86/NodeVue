@@ -8,12 +8,15 @@ import BoardViewVue from "./views/BoardView.vue";
 //@ts-ignore
 import BoardsViewVue from "./views/BoardsView.vue";
 import { createRouter, createWebHistory } from "vue-router";
+//@ts-ignore
+import LoginViewVue from "./views/LoginView.vue";
 
 const app = createApp(App);
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    { path: "/login", component: LoginViewVue },
     { path: "/boards", component: BoardsViewVue },
     { path: "/boards/:idBoard", component: BoardViewVue },
   ],
