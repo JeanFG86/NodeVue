@@ -11,6 +11,8 @@ import { createRouter, createWebHistory } from "vue-router";
 //@ts-ignore
 import LoginViewVue from "./views/LoginView.vue";
 import { createPinia } from "pinia";
+import AuthServiceHttp from "./services/AuthServiceHttp";
+import { useAuthStore } from "./stores/AuthStore";
 
 const app = createApp(App);
 
@@ -27,12 +29,14 @@ const httpClient = new AxiosAdapter();
 //const httpClient = new FetchAdapter();
 const baseUrl = "http://localhost:3000";
 
+const authService = new AuthServiceHttp(httpClient, baseUrl);
 const pinia = createPinia();
 pinia.use(({ store }) => {
-  store.$router = router;
+  (store.$router = router), (store.authService = authService);
 });
 
 app.use(router);
 app.use(pinia);
+useAuthStore().init();
 app.provide("boardService", new BoardServiceHttp(httpClient, baseUrl));
 app.mount("#app");

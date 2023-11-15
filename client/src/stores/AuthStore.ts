@@ -8,15 +8,23 @@ export const useAuthStore = defineStore("authStore", {
   },
   actions: {
     async login(username: string, password: string) {
-      this.session.token = "123456";
+      //@ts-ignore
+      this.session = await this.authService.login(username, password);
       localStorage.setItem("token", this.session.token);
+      //@ts-ignore
       this.$router.push("/boards");
     },
     logout() {
       this.session = {};
       localStorage.removeItem("token");
+      //@ts-ignore
       this.$router.push("/login");
     },
-    init() {},
+    init() {
+      const token = localStorage.getItem("token");
+      if (token) {
+        this.session.token = token;
+      }
+    },
   },
 });
