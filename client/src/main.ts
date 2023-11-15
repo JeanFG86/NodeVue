@@ -25,7 +25,7 @@ const router = createRouter({
   ],
 });
 
-const httpClient = new AxiosAdapter();
+const httpClient = new AxiosAdapter(router);
 //const httpClient = new FetchAdapter();
 const baseUrl = "http://localhost:3000";
 
