@@ -1,10 +1,12 @@
 <script setup lang="ts">
-
+import { useAuthStore } from '../stores/AuthStore';
+const authStore = useAuthStore();
 </script>
 
 <template>
     <div class="nav">
-        <button>Logout</button>
+        {{ authStore.session.token }}
+        <button @click="authStore.logout()">Logout</button>
     </div>
 </template>
 

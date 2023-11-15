@@ -10,6 +10,7 @@ import BoardsViewVue from "./views/BoardsView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 //@ts-ignore
 import LoginViewVue from "./views/LoginView.vue";
+import { createPinia } from "pinia";
 
 const app = createApp(App);
 
@@ -25,6 +26,13 @@ const router = createRouter({
 const httpClient = new AxiosAdapter();
 //const httpClient = new FetchAdapter();
 const baseUrl = "http://localhost:3000";
+
+const pinia = createPinia();
+pinia.use(({ store }) => {
+  store.$router = router;
+});
+
 app.use(router);
+app.use(pinia);
 app.provide("boardService", new BoardServiceHttp(httpClient, baseUrl));
 app.mount("#app");
