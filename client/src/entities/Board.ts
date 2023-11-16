@@ -41,6 +41,11 @@ export default class Board extends BaseEntity {
     this.selectedCard = card;
   }
 
+  resetCard() {
+    this.selectedColumn = undefined;
+    this.selectedCard = undefined;
+  }
+
   getEstimative() {
     return this.columns.reduce((total: number, column: Column) => {
       total += column.getEstimative();
