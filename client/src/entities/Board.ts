@@ -4,6 +4,8 @@ import Card from "./Card";
 import Column from "./Column";
 
 export default class Board extends BaseEntity {
+  selectedColumn?: Column;
+  selectedCard?: Card;
   columns: Column[];
 
   constructor(readonly idBoard: number, readonly name: string) {
@@ -32,6 +34,11 @@ export default class Board extends BaseEntity {
 
   increaseEstimative(card: Card) {
     card.increaseEstimative();
+  }
+
+  selectCard(column: Column, card: Card) {
+    this.selectedColumn = column;
+    this.selectedCard = card;
   }
 
   getEstimative() {
