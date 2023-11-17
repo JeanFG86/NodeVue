@@ -7,7 +7,7 @@ export default class CardRepositoryDtabase implements CardRepository {
 
     async findAllByIdColumn(idColumn: number): Promise<Card[]> {
         const cardsData = await this.connection.query(
-            "select id_column, id_card, title, estimative from j.card where id_column = $1",
+            "select id_column, id_card, title, estimative, color from j.card where id_column = $1 order by index",
             [idColumn]
         );
         const cards: Card[] = [];
@@ -17,11 +17,11 @@ export default class CardRepositoryDtabase implements CardRepository {
                     cardData.id_column,
                     cardData.id_card,
                     cardData.title,
-                    cardData.estimative
+                    cardData.estimative,
+                    cardData.color
                 )
             );
         }
-
         return cards;
     }
 }

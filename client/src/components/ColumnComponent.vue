@@ -6,7 +6,7 @@ defineProps(["board", "column"]);
 </script>
 
 <template>
-    <div class="column">
+    <div class="column" @dragover="board.moveCard(column)">
         <h3>{{ column.name }} <span class="estimative">{{ column.getEstimative() }}</span></h3>
         <div v-for="card in column.cards">
         <CardComponent :board="board" :column="column" :card="card"></CardComponent>

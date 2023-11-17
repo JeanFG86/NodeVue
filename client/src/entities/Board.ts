@@ -46,6 +46,15 @@ export default class Board extends BaseEntity {
     this.selectedCard = undefined;
   }
 
+  moveCard(column: Column) {
+    console.log(`${this.selectedCard?.idCard}`);
+    if (!this.selectedColumn || !this.selectedCard || !this.selectedCard.idCard)
+      return;
+    if (this.selectedColumn === column) return;
+    console.log("teta");
+    this.selectedColumn.deleteCard(this.selectedCard.idCard);
+  }
+
   getEstimative() {
     return this.columns.reduce((total: number, column: Column) => {
       total += column.getEstimative();

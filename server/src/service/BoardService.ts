@@ -35,6 +35,7 @@ export default class BoardService {
                 estimative: 0,
                 cards: [],
             };
+            if (!column.idColumn) continue;
             const cards = await this.cardRepository.findAllByIdColumn(
                 column.idColumn
             );
@@ -45,9 +46,9 @@ export default class BoardService {
                     idCard: card.idCard,
                     title: card.title,
                     estimative: card.estimative,
+                    color: card.color,
                 });
             }
-
             output.columns.push(columnOutput);
         }
         return output;
@@ -64,9 +65,10 @@ type ColumnOutput = {
     estimative: number;
     hasEstimative: boolean;
     cards: {
-        idCard: number;
+        idCard?: number;
         title: string;
         estimative: number;
+        color: string;
     }[];
 };
 
