@@ -37,13 +37,19 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
             "select id_board, id_column, name, has_estimative from j.column where id_column = $1",
             [idColumn]
         );
-        const columns: Column[] = [];
         if (!columnData) throw new Error("Column not found");
         return new Column(
             columnData.id_board,
             columnData.id_column,
             columnData.name,
             columnData.has_estimative
+        );
+    }
+
+    async update(column: Column): Promise<void> {
+        await this.connection.query(
+            "update j.column set name = $1 where id_column = $2",
+            [column.name, column.idColumn]
         );
     }
 

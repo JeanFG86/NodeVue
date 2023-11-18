@@ -15,7 +15,6 @@ export default class BoardRepositoryDatabase implements BoardRepository {
             const board = new Board(boardData.id_board, boardData.name);
             boards.push(board);
         }
-
         return boards;
     }
 
@@ -27,5 +26,26 @@ export default class BoardRepositoryDatabase implements BoardRepository {
         if (!boardData) throw new Error("Board not found");
         const board = new Board(boardData.id_board, boardData.name);
         return board;
+    }
+
+    async save(board: Board): Promise<number> {
+        const [boardData] = await this.connection.query(
+            "insert into j.board (name) values ($1) returning *",
+            [board.name]
+        );
+        return boardData.id_board;
+    }
+
+    async update(board: Board): Promise<void> {
+        await this.connection.query(
+            "update j.board set name = $1 where id_board = $2",
+            [board.name, board.idBoard]
+        );
+    }
+
+    async delete(idBoard: number): Promise<void> {
+        await this.connection.query("delete from j.board where id_board = $1", [
+            idBoard,
+        ]);
     }
 }

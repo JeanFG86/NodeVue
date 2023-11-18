@@ -85,6 +85,27 @@ export default class BoardController {
         );
 
         http.route(
+            "post",
+            "/boards/:idBoard/columns/:idColumn/cards",
+            async function (params: any, body: any) {
+                const cardRepository = new CardRepositoryDatabase(connection);
+                const cardService = new CardService(cardRepository);
+                const idCard = await cardService.saveCard(body);
+                return idCard;
+            }
+        );
+
+        http.route(
+            "put",
+            "/boards/:idBoard/columns/:idColumn/cards/:idCard",
+            async function (params: any, body: any) {
+                const cardRepository = new CardRepositoryDatabase(connection);
+                const cardService = new CardService(cardRepository);
+                await cardService.updateCard(body);
+            }
+        );
+
+        http.route(
             "delete",
             "/boards/:idBoard/columns/:idColumn",
             async function (params: any, body: any) {
@@ -106,6 +127,29 @@ export default class BoardController {
                     parseInt(params.idColumn)
                 );
                 return cards;
+            }
+        );
+
+        http.route(
+            "delete",
+            "/boards/:idBoard/columns/:idColumn/cards/:idCard",
+            async function (params: any, body: any) {
+                const cardRepository = new CardRepositoryDatabase(connection);
+                const cardService = new CardService(cardRepository);
+                await cardService.deleteCard(parseInt(params.idCard));
+            }
+        );
+
+        http.route(
+            "post",
+            "/boards/:idBoard/updatePositionMap",
+            async function (params: any, body: any) {
+                const boardService = new BoardService(
+                    boardRepository,
+                    columnRepository,
+                    cardRepository
+                );
+                await boardService.updatePositionMap(body);
             }
         );
     }
