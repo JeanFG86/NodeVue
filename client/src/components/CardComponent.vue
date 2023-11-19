@@ -5,7 +5,7 @@ defineProps(["board", "column", "card"]);
 </script>
 
 <template>
-    <div class="card" draggable="true" @dragstart="board.selectCard(column, card)" @dragend="board.resetCard()">
+    <div class="card" draggable="true" @dragstart="board.selectCard(column, card)" @dragend="board.resetCard()" @dragover="board.swap(card)">
         <div class="card-title">
     			{{ card.idCard }} - {{ card.title }} (<span class="card-estimative">{{ card.estimative }}</span>)
     		</div>

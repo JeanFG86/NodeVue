@@ -106,6 +106,21 @@ export default class Board extends BaseEntity {
       return;
     if (this.selectedColumn === column) return;
     this.selectedColumn.deleteCard(this.selectedCard.idCard);
+    column.addCard(this.selectedCard);
+    this.selectedColumn = column;
+  }
+
+  swap(card: Card) {
+    if (this.selectedCard === card) return;
+    if (!this.selectedColumn || !this.selectedCard || !this.selectedCard.idCard)
+      return;
+
+    const a = this.selectedColumn.cards.indexOf(card);
+    const b = this.selectedColumn.cards.indexOf(this.selectedCard);
+    const temp = this.selectedColumn.cards[a];
+    this.selectedColumn.cards[a] = this.selectedColumn.cards[b];
+    this.selectedColumn.cards[b] = temp;
+    //this.publish(new DomainEvent("updatePositionMap", { idBoard: this.idBoard, positionMap: this.generatePositionMap() }));
   }
 
   getEstimative() {
