@@ -9,16 +9,15 @@ defineProps(["board"]);
 
 <template>
     <div v-if="board">
-        {{ board.selectedColumn?.name }} {{ board.selectedCard?.title }}
-            <h3>{{ board.name }} <span id="estimative">{{ board.getEstimative() }}</span></h3>
-            <div class="columns">
-                <div v-for="column in board.columns">
-                    <ColumnComponent :board="board" :column="column"></ColumnComponent>
-                    <NewCardComponent :board="board" :column="column"></NewCardComponent>
-                </div>
-                <NewColumnComponent :board="board"></NewColumnComponent>
-            </div>  
-        </div> 
+        <h3>{{ board.name }} (<span id="estimative">{{ board.getEstimative() }}</span>)</h3>
+        <div class="columns">
+            <div v-for="column in board.columns">
+                <ColumnComponent :board="board" :column="column"></ColumnComponent>
+                <NewCardComponent :board="board" :column="column"></NewCardComponent>
+            </div>
+            <NewColumnComponent :board="board"></NewColumnComponent>
+        </div>
+    </div>
 </template>
 
 <style scoped>

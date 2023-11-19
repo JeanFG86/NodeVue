@@ -10,4 +10,8 @@ export default class Card {
   increaseEstimative() {
     this.estimative++;
   }
+
+  decreaseEstimative() {
+    this.estimative--;
+  }
 }
