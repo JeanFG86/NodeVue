@@ -108,6 +108,12 @@ export default class Board extends BaseEntity {
     this.selectedColumn.deleteCard(this.selectedCard.idCard);
     column.addCard(this.selectedCard);
     this.selectedColumn = column;
+    this.publish(
+      new DomainEvent("updatePositionMap", {
+        idBoard: this.idBoard,
+        positionMap: this.generatePositionMap(),
+      })
+    );
   }
 
   swap(card: Card) {
@@ -120,7 +126,25 @@ export default class Board extends BaseEntity {
     const temp = this.selectedColumn.cards[a];
     this.selectedColumn.cards[a] = this.selectedColumn.cards[b];
     this.selectedColumn.cards[b] = temp;
-    //this.publish(new DomainEvent("updatePositionMap", { idBoard: this.idBoard, positionMap: this.generatePositionMap() }));
+    this.publish(
+      new DomainEvent("updatePositionMap", {
+        idBoard: this.idBoard,
+        positionMap: this.generatePositionMap(),
+      })
+    );
+  }
+
+  generatePositionMap() {
+    const positionMap: any = {};
+    for (const column of this.columns) {
+      if (!column.idColumn) continue;
+      positionMap[column.idColumn] = [];
+      for (const card of column.cards) {
+        positionMap[column.idColumn].push(card.idCard);
+      }
+    }
+    console.log(positionMap);
+    return positionMap;
   }
 
   getEstimative() {
